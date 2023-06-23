@@ -30,7 +30,7 @@ pub type Request = HttpRequest<()>;
 pub type Response = HttpResponse<()>;
 
 /// Server error response type.
-pub type ErrorResponse = HttpResponse<Vec<u8>>;
+pub type ErrorResponse = HttpResponse<Option<Vec<u8>>>;
 
 fn create_parts<T>(request: &HttpRequest<T>) -> Result<Builder> {
     if request.method() != http::Method::GET {
@@ -253,7 +253,9 @@ impl<S: Read + Write, C: Callback> HandshakeRole for ServerHandshake<S, C> {
                         let mut output = vec![];
                         write_response(&mut output, resp)?;
 
-                        output.extend(resp.body());
+                        if let Some(body) = resp.body() {
+                            output.extend(body);
+                        }
 
                         ProcessingResult::Continue(HandshakeMachine::start_write(stream, output))
                     }
@@ -265,7 +267,7 @@ impl<S: Read + Write, C: Callback> HandshakeRole for ServerHandshake<S, C> {
                     debug!("Server handshake failed.");
 
                     let (parts, body) = err.into_parts();
-                    return Err(Error::Http(http::Response::from_parts(parts, Some(body))));
+                    return Err(Error::Http(http::Response::from_parts(parts, body)));
                 } else {
                     debug!("Server handshake done.");
                     let websocket = WebSocket::from_raw_socket(stream, Role::Server, self.config);
