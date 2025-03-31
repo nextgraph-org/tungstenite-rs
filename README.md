@@ -1,4 +1,6 @@
-# Tungstenite
+# ng-tungstenite
+
+fork of https://github.com/snapview/tungstenite-rs for the needs of NextGraph.org
 
 Lightweight stream-based WebSocket implementation for [Rust](https://www.rust-lang.org/).
 
@@ -40,8 +42,8 @@ take a look at [`tokio-tungstenite`](https://github.com/snapview/tokio-tungsteni
 
 [Documentation](https://docs.rs/tungstenite)
 
-Introduction
-------------
+## Introduction
+
 This library provides an implementation of WebSockets,
 [RFC6455](https://tools.ietf.org/html/rfc6455). It allows for both synchronous (like TcpStream)
 and asynchronous usage and is easy to integrate into any third-party event loops including
@@ -49,23 +51,21 @@ and asynchronous usage and is easy to integrate into any third-party event loops
 WebSocket protocol but still makes them accessible for those who wants full control over the
 network.
 
-Why Tungstenite?
-----------------
+## Why Tungstenite?
 
 It's formerly WS2, the 2nd implementation of WS. WS2 is the chemical formula of
 tungsten disulfide, the tungstenite mineral.
 
-Features
---------
+## Features
 
 Tungstenite provides a complete implementation of the WebSocket specification.
 TLS is supported on all platforms using `native-tls` or `rustls`. The following
 features are available:
 
-* `native-tls`
-* `native-tls-vendored`
-* `rustls-tls-native-roots`
-* `rustls-tls-webpki-roots`
+- `native-tls`
+- `native-tls-vendored`
+- `rustls-tls-native-roots`
+- `rustls-tls-webpki-roots`
 
 Choose the one that is appropriate for your needs.
 
@@ -74,13 +74,11 @@ otherwise you won't be able to communicate with the TLS endpoints.
 
 There is no support for permessage-deflate at the moment, but the PRs are welcome :wink:
 
-Testing
--------
+## Testing
 
 Tungstenite is thoroughly tested and passes the [Autobahn Test Suite](https://crossbar.io/autobahn/) for
 WebSockets. It is also covered by internal unit tests as well as possible.
 
-Contributing
-------------
+## Contributing
 
 Please report bugs and make feature requests [here](https://github.com/snapview/tungstenite-rs/issues).
